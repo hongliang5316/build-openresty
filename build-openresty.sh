@@ -49,7 +49,7 @@ build_zlib()
            cd zlib-$ZLIB_VER;
            ./configure --prefix=$ZLIB_PREFIX;
            CFLAGS='-O3 -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -g' \\
-           SFLAGS='-O3 -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -g';
+           SFLAGS='-O3 -fPIC -D_LARGEFILE64_SOURCE=1 -DHAVE_HIDDEN -g' \\
            make && make install
           "
 }
