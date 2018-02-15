@@ -3,6 +3,7 @@
 clean()
 {
     rm -rf $MAIN_DIR/*
+    rm -rf $OPENRESTY_PREFIX/*
 }
 
 
@@ -20,7 +21,7 @@ build_openssl()
              -I$ZLIB_PREFIX/include \\
              -L$ZLIB_PREFIX/lib \\
              -Wl,-rpath,$ZLIB_PREFIX/lib:$OPENSSL_PREFIX/lib;
-             make && make install_sw
+           make && make install_sw
           "
 }
 
@@ -62,37 +63,37 @@ build_openresty()
            tar zxf openresty-$OPENRESTY_VER.tar.gz;
            cd openresty-$OPENRESTY_VER;
            ./configure \\
-                 --prefix=$OPENRESTY_PREFIX \\
-                 --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I$ZLIB_PREFIX/include -I$PCRE_PREFIX/include -I$OPENSSL_PREFIX/include' \\
-                 --with-ld-opt='-L$ZLIB_PREFIX/lib -L$PCRE_PREFIX/lib -L$OPENSSL_PREFIX/lib -Wl,-rpath,$ZLIB_PREFIX/lib:$PCRE_PREFIX/lib:$OPENSSL_PREFIX/lib' \\
-                 --with-pcre-jit \\
-                 --without-http_rds_json_module \\
-                 --without-http_rds_csv_module \\
-                 --without-lua_rds_parser \\
-                 --with-stream \\
-                 --with-stream_ssl_module \\
-                 --with-http_v2_module \\
-                 --without-mail_pop3_module \\
-                 --without-mail_imap_module \\
-                 --without-mail_smtp_module \\
-                 --with-http_stub_status_module \\
-                 --with-http_realip_module \\
-                 --with-http_addition_module \\
-                 --with-http_auth_request_module \\
-                 --with-http_secure_link_module \\
-                 --with-http_random_index_module \\
-                 --with-http_gzip_static_module \\
-                 --with-http_sub_module \\
-                 --with-http_dav_module \\
-                 --with-http_flv_module \\
-                 --with-http_mp4_module \\
-                 --with-http_gunzip_module \\
-                 --with-threads \\
-                 --with-file-aio \\
-                 --with-luajit-xcflags='-DLUAJIT_ENABLE_GC64 -DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT' \\
-                 --with-dtrace-probes \\
-                 --with-debug ;
-                 make && make install
+             --prefix=$OPENRESTY_PREFIX \\
+             --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I$ZLIB_PREFIX/include -I$PCRE_PREFIX/include -I$OPENSSL_PREFIX/include' \\
+             --with-ld-opt='-L$ZLIB_PREFIX/lib -L$PCRE_PREFIX/lib -L$OPENSSL_PREFIX/lib -Wl,-rpath,$ZLIB_PREFIX/lib:$PCRE_PREFIX/lib:$OPENSSL_PREFIX/lib' \\
+             --with-pcre-jit \\
+             --without-http_rds_json_module \\
+             --without-http_rds_csv_module \\
+             --without-lua_rds_parser \\
+             --with-stream \\
+             --with-stream_ssl_module \\
+             --with-http_v2_module \\
+             --without-mail_pop3_module \\
+             --without-mail_imap_module \\
+             --without-mail_smtp_module \\
+             --with-http_stub_status_module \\
+             --with-http_realip_module \\
+             --with-http_addition_module \\
+             --with-http_auth_request_module \\
+             --with-http_secure_link_module \\
+             --with-http_random_index_module \\
+             --with-http_gzip_static_module \\
+             --with-http_sub_module \\
+             --with-http_dav_module \\
+             --with-http_flv_module \\
+             --with-http_mp4_module \\
+             --with-http_gunzip_module \\
+             --with-threads \\
+             --with-file-aio \\
+             --with-luajit-xcflags='-DLUAJIT_ENABLE_GC64 -DLUAJIT_NUMMODE=2 -DLUAJIT_ENABLE_LUA52COMPAT' \\
+             --with-dtrace-probes \\
+             --with-debug ;
+            make && make install
            "
 }
 
@@ -111,14 +112,14 @@ PCRE_VER=8.40
 OPENSSL_VER=1.0.2k
 OPENRESTY_VER=1.13.6.1
 
-ZLIB_PREFIX=/usr/local/openresty/zlib
-PCRE_PREFIX=/usr/local/openresty/pcre
-OPENSSL_PREFIX=/usr/local/openresty/openssl
 OPENRESTY_PREFIX=/usr/local/openresty
-
-clean
+ZLIB_PREFIX=$OPENRESTY_PREFIX/zlib
+PCRE_PREFIX=$OPENRESTY_PREFIX/pcre
+OPENSSL_PREFIX=$OPENRESTY_PREFIX/openssl
 
 pre_install
+
+clean
 
 build_zlib
 
