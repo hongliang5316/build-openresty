@@ -9,8 +9,8 @@ clean()
 
 build_openssl()
 {
-    sh -c "wget https://www.openssl.org/source/openssl-$OPENSSL_VER.tar.gz -P $MAIN_DIR;
-           cd $MAIN_DIR;
+    sh -c "cd $MAIN_DIR;
+           wget https://www.openssl.org/source/openssl-$OPENSSL_VER.tar.gz -P $MAIN_DIR;
            tar -zxf openssl-$OPENSSL_VER.tar.gz;
            cd openssl-$OPENSSL_VER;
            wget 'https://raw.githubusercontent.com/openresty/openresty/master/patches/openssl-1.0.2h-sess_set_get_cb_yield.patch';
@@ -29,8 +29,8 @@ build_openssl()
 
 build_pcre()
 {
-    sh -c "wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$PCRE_VER.tar.bz2 -P $MAIN_DIR;
-           cd $MAIN_DIR;
+    sh -c "cd $MAIN_DIR;
+           wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$PCRE_VER.tar.bz2 -P $MAIN_DIR;
            tar -xf pcre-$PCRE_VER.tar.bz2;
            cd pcre-$PCRE_VER;
            ./configure --prefix=$PCRE_PREFIX \\
@@ -45,8 +45,8 @@ build_pcre()
 
 build_zlib()
 {
-    sh -c "wget http://www.zlib.net/zlib-$ZLIB_VER.tar.xz -P $MAIN_DIR;
-           cd $MAIN_DIR;
+    sh -c "cd $MAIN_DIR;
+           wget http://www.zlib.net/zlib-$ZLIB_VER.tar.xz -P $MAIN_DIR;
            tar -xf zlib-$ZLIB_VER.tar.xz;
            cd zlib-$ZLIB_VER;
            ./configure --prefix=$ZLIB_PREFIX;
@@ -59,8 +59,8 @@ build_zlib()
 
 build_openresty()
 {
-    sh -c "wget https://openresty.org/download/openresty-$OPENRESTY_VER.tar.gz -P $MAIN_DIR;
-           cd $MAIN_DIR;
+    sh -c "cd $MAIN_DIR;
+           wget https://openresty.org/download/openresty-$OPENRESTY_VER.tar.gz -P $MAIN_DIR;
            tar zxf openresty-$OPENRESTY_VER.tar.gz;
            cd openresty-$OPENRESTY_VER;
            ./configure \\

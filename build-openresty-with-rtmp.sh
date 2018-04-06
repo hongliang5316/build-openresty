@@ -28,8 +28,8 @@ build_openssl()
 
 build_pcre()
 {
-    sh -c "wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$PCRE_VER.tar.bz2 -P $MAIN_DIR;
-           cd $MAIN_DIR;
+    sh -c "cd $MAIN_DIR;
+           wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$PCRE_VER.tar.bz2 -P $MAIN_DIR;
            tar -xf pcre-$PCRE_VER.tar.bz2;
            cd pcre-$PCRE_VER;
            ./configure --prefix=$PCRE_PREFIX \\
@@ -59,6 +59,7 @@ build_zlib()
 build_openresty()
 {
     sh -c "cd $MAIN_DIR;
+           git clone https://github.com/arut/nginx-rtmp-module.git;
            wget https://openresty.org/download/openresty-$OPENRESTY_VER.tar.gz -P $MAIN_DIR;
            tar zxf openresty-$OPENRESTY_VER.tar.gz;
            cd openresty-$OPENRESTY_VER;
@@ -66,6 +67,7 @@ build_openresty()
              --prefix=$OPENRESTY_PREFIX \\
              --with-cc-opt='-DNGX_LUA_ABORT_AT_PANIC -I$ZLIB_PREFIX/include -I$PCRE_PREFIX/include -I$OPENSSL_PREFIX/include' \\
              --with-ld-opt='-L$ZLIB_PREFIX/lib -L$PCRE_PREFIX/lib -L$OPENSSL_PREFIX/lib -Wl,-rpath,$ZLIB_PREFIX/lib:$PCRE_PREFIX/lib:$OPENSSL_PREFIX/lib' \\
+             --add-module=../nginx-rtmp-module \\
              --with-pcre-jit \\
              --without-http_rds_json_module \\
              --without-http_rds_csv_module \\
